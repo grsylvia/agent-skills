@@ -14,16 +14,13 @@ Selected links must stand out with a strong color, outline, and visible selectio
 1. Locate the requested URDF and mesh packages. Expand Xacro using the project's ROS environment and required arguments first; never guess unresolved substitutions.
 2. Preserve each link’s URDF mesh filenames. For merged meshes, find the project’s authoritative part-to-link mapping and pass its constituent STL filenames using `--mesh-sources`; do not infer membership from names or geometry. Show original parts separately from merged URDF exports. For individual selection within merged STLs, supply verified triangle ranges for each source instance; use the assembly export order and verify the geometry, never guess ranges. The converter splits these ranges without changing triangles or visual origins. If source membership is unavailable, show direct URDF references only; filename-only provenance must clearly indicate that individual geometry is unavailable. Include links without STL files and report omitted meshes. See [input-support.md](references/input-support.md) for the JSON format.
 3. Choose the tip link from the request or robot structure. For multiple tools, use the requested tool; if unspecified, disclose the converter's deepest-link default. The tip affects only the marker, coordinates, and trail.
-4. Export every viewer HTML generated for the user, including rebuilds and variants, to the Windows OneDrive Documents folder `robot_urdf_viewers`. This is the standing destination for all future runs of this skill. Create that folder if needed. Use a descriptive filename such as `<robot-name>-viewer.html`.
+4. Before building, ask the user for the target folder for completed viewer HTML, unless the request or project instructions already name one. Do not choose a default. Use that folder for every viewer generated in the conversation, including rebuilds and variants. Create the folder if needed. Use a descriptive filename such as `<robot-name>-viewer.html`.
 
-   - Windows: `C:\Users\grsga\OneDrive\Documents\robot_urdf_viewers`
-   - WSL: `/mnt/c/Users/grsga/OneDrive/Documents/robot_urdf_viewers`
-
-   The user explicitly authorizes this OneDrive destination for viewer HTML containing embedded private CAD/STL geometry, including Arctos. Keep source assets and intermediate mesh exports local and Git-excluded, but do not substitute `cad/`, `/tmp`, or a WSL-only path for the delivered HTML. If destination access requires filesystem approval, request that access instead of changing the destination. Open and link the OneDrive copy. Run from this skill's directory:
+   Completed HTML embeds the robot's STL geometry, which may be private; save it only to the user's chosen folder. Keep source assets and intermediate mesh exports local and Git-excluded. If folder access requires filesystem approval, request that access instead of changing the folder. Open and link the saved copy. Run from this skill's directory:
 
    ```bash
    python3 scripts/build_viewer.py /path/to/robot.urdf \
-     -o /mnt/c/Users/grsga/OneDrive/Documents/robot_urdf_viewers/robot-viewer.html \
+     -o <target-folder>/robot-viewer.html \
      --package robot_description=/path/to/robot_description --tip tool_link
    ```
 
@@ -39,7 +36,7 @@ Selected links must stand out with a strong color, outline, and visible selectio
 - Embed actual STL triangles alongside their block bounds, preserving mesh scale and visual origins. STL mode retains primitives and uses block fallbacks for unsupported actual mesh formats. Disable the STL option if no STL visuals exist. Do not discard triangle detail or fetch mesh files at runtime.
 - Preserve URDF origins, axes, limits, and mimic equations. Keep meters and radians internally; angle controls display degrees.
 - No IK, workspace solver, collisions, dynamics, or robot commands. Motion is illustrative forward kinematics.
-- The user explicitly authorizes completed HTML viewers, including embedded private CAD/STL geometry, in the personal OneDrive destination above. Keep source CAD/STL files and intermediate exports local and Git-excluded. This authorization does not permit publishing private assets to GitHub, bundling them in this skill, or uploading them to other services for testing.
+- Save completed HTML viewers, including embedded private CAD/STL geometry, only to the user's chosen target folder. Keep source CAD/STL files and intermediate exports local and Git-excluded. Never publish private assets to GitHub, bundle them in this skill, or upload them to other services for testing.
 - Do not edit the source URDF to make a visualization work. Report unsupported inputs or ask for a required model choice.
 
 ## Verify

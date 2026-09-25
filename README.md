@@ -20,3 +20,7 @@ Shared skills for Codex and Claude Code (`SKILL.md` format).
 git clone https://github.com/grsylvia/agent-skills ~/.agents/skills
 for s in ~/.agents/skills/*/; do ln -s "${s%/}" ~/.claude/skills/$(basename "$s"); done
 ```
+
+## License
+
+[MIT](LICENSE). `robot-urdf-viewer/assets/viewer.html` bundles Three.js (MIT, notice included).

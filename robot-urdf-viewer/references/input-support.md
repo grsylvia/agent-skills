@@ -17,7 +17,7 @@
 
 Mesh lookup: explicit `--package NAME=PATH`, sourced ROS `AMENT_PREFIX_PATH`, then nearby package folders. Relative filenames resolve beside the URDF; `file://` paths are local. No remote asset downloads. Use `--strict-meshes` to fail on unsupported or unresolved meshes.
 
-**Geometry** starts on **Block CAD**. **STL models** lazily creates the embedded triangle geometry, retaining the current pose, camera, colors, and selection. Primitive visuals remain unchanged. STL data increases the HTML size. Save completed HTML, including embedded private meshes, to the OneDrive destination specified in SKILL.md; the user has explicitly authorized this.
+**Geometry** starts on **Block CAD**. **STL models** lazily creates the embedded triangle geometry, retaining the current pose, camera, colors, and selection. Primitive visuals remain unchanged. STL data increases the HTML size. Save completed HTML, including embedded private meshes, only to the target folder the user chose (see SKILL.md).
 
 Keep expanded Xacro beside its source when relative mesh paths require that directory, or rewrite those paths to absolute local paths in a temporary copy. Do not change the original source.
 
