@@ -71,9 +71,11 @@ test -f "$(ros2 pkg prefix <pkg>)/share/<pkg>/<path>" && echo ok
 
 **Summary:** <n> blocker · <n> warn · <n> note
 
-| Sev | Rule | Location | Evidence | Fix | Source |
-| --- | --- | --- | --- | --- | --- |
-| Warn | URDF-005 | `arctos.urdf:42` | `axis xyz="0 0 2"` | Normalize to `0 0 1` | [URDF-J] |
+**Findings:** every blocker, warn, and note in one table, sorted Blocker → Warn → Note; the user requests fixes by ID (e.g. "fix F2").
+
+| ID | Sev | Rule | Location | Evidence | Fix | Source |
+| --- | --- | --- | --- | --- | --- | --- |
+| F1 | Warn | URDF-005 · Axis normalized | `arctos.urdf:42` | `axis xyz="0 0 2"` | Normalize to `0 0 1` | [URDF-J] |
 
 **Kinematic tree:** <A2 text tree>
 

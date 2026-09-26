@@ -20,6 +20,7 @@ Cite by key. Textbooks are cited by chapter or section only; never copy their te
 | [REP-149] | Package Manifest Format Three | https://www.ros.org/reps/rep-0149.html |
 | [URDF-J] | URDF `<joint>` spec | https://wiki.ros.org/urdf/XML/joint |
 | [URDF-L] | URDF `<link>` spec | https://wiki.ros.org/urdf/XML/link |
+| [ROS-I] | ROS-Industrial, Create a URDF for an Industrial Robot (frame and limit conventions) | https://wiki.ros.org/Industrial/Tutorials/Create%20a%20URDF%20for%20an%20Industrial%20Robot |
 
 ## ROS 2 docs (Jazzy; swap the distro in the URL to match `$ROS_DISTRO`)
 
