@@ -72,10 +72,17 @@ test -f "$(ros2 pkg prefix <pkg>)/share/<pkg>/<path>" && echo ok
 **Summary:** <n> blocker · <n> warn · <n> note
 
 **Findings:** every blocker, warn, and note in one table, sorted Blocker → Warn → Note; the user requests fixes by ID (e.g. "fix F2").
+Keep every cell to a few words so the table fits the terminal width; wide tables render as stacked records instead of a table.
 
-| ID | Sev | Rule | Location | Evidence | Fix | Source |
-| --- | --- | --- | --- | --- | --- | --- |
-| F1 | Warn | URDF-005 · Axis normalized | `arctos.urdf:42` | `axis xyz="0 0 2"` | Normalize to `0 0 1` | [URDF-J] |
+| ID | Sev | Rule | Location | Fix |
+| --- | --- | --- | --- | --- |
+| F1 | Warn | URDF-005 · Axis normalized | `arctos.urdf:42` | Normalize axis |
+
+**Evidence:** one bullet per finding ID, in table order.
+
+- **F1** · `axis xyz="0 0 2"`; set to `0 0 1`. · [URDF-J]
+
+Do not list rules that passed; report only findings.
 
 **Kinematic tree:** <A2 text tree>
 
