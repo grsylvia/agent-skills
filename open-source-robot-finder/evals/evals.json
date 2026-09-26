@@ -1,0 +1,23 @@
+{
+  "skill_name": "open-source-robot-finder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've got a Bambu P1S and about $250. What's a robot arm I could print and have moving by the end of the weekend? Don't need ROS.",
+      "expected_output": "Ranked arm scorecard; SO-101 or Koch v1.1 near the top; every score cited; rejected list present; AR4 rejected for no license if it surfaces.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "looking for an open source mobile base i can 3d print, ROS 2 support is a must, budget maybe $500-800, no rush",
+      "expected_output": "Ranked mobile-base scorecard gated on URDF/ROS 2; LeKiwi evaluated; software-only repos rejected under G1.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Compare SO-101, PAROL6, and Thor for me. Which one gets me a working 6-axis arm fastest if machining is ok?",
+      "expected_output": "Scorecard limited to the three named arms; Thor BOM found via its website; PAROL6 scores higher on docs/software but lower on print effort and cost than SO-101.",
+      "files": []
+    }
+  ]
+}
