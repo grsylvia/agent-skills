@@ -7,6 +7,16 @@ description: Generate source-grounded ROS 2 control-flow diagrams as paired PDFs
 
 Generate the control-flow view selected by the user as a readable PDF with an agent-readable Markdown companion. Explain how commands and events trigger execution and which responses or results allow work to continue.
 
+## Required writing skill
+
+- You must use `$asd-ste100` for all English text you write or revise while using or maintaining this skill. Read its `SKILL.md` before writing. Resolve it from the available skills or [the sibling installation](../asd-ste100/SKILL.md). If it is unavailable, report the missing dependency and stop writing until it is available.
+- Apply it to diagram titles, labels, legends, Markdown companions, user messages, and skill edits. Use Strict mode for technical descriptions, conditions, instructions, and text for agents. Use STE-flavored mode for explanatory prose.
+- Preserve exact identifiers, paths, code, formulas, units, and required notation. Keep named states and interfaces unchanged. Short names and structured labels need not become full sentences. Write complete sentences for behavioral claims when a fragment could hide the actor or condition.
+- Preserve every fact, condition, scope limit, uncertainty, and distinction between requests and outcomes. Keep precise wording when a shorter version would change the meaning. Do not claim certified STE compliance.
+- Before rendering, apply the skill's review process to the diagram text and Markdown companion. Run its `scripts/ste-lint.py` on temporary text exports. Review findings against the source meaning. Correct applicable findings and record necessary exceptions in the brief completion message. Repeat the review after text changes.
+- Use `$asd-ste100` as the writing process within this workflow. Keep this skill's PDF and Markdown structure, notation, and delivery rules. Return the artifact links and brief completion message instead of replacing them with the writing skill's text-only response.
+
+
 ## Select the level
 
 Before generating a diagram, prompt the user: "Which control-flow level would you like: system overview, package / node detail, or callback / operation detail?" Present these three choices and wait for the selection. If the current command already specifies a level, use that selection without asking again. This prompt applies to diagram generation, not requests to edit the skill.
@@ -124,7 +134,7 @@ Use explicit edge labels and a small legend; color alone must not convey meaning
 
 ## PDF and Markdown output and verification
 
-1. Use an available renderer that produces a real PDF, preferably with vector text and shapes. Graphviz DOT rendered with `dot -Tpdf` suits many graphs; a plotting/PDF library or manual placement may better handle complex routing. Do not assume automatic layout satisfies the visual rules.
+1. Complete the required writing review before rendering. Use an available renderer that produces a real PDF, preferably with vector text and shapes. Graphviz DOT rendered with `dot -Tpdf` suits many graphs; a plotting/PDF library or manual placement may better handle complex routing. Do not assume automatic layout satisfies the visual rules.
 2. Export PDFs to `./pdf_docs/` and Markdown companions to `./md_docs/`, relative to the working project root. Create these directories if needed. Use matching filename stems, such as `pdf_docs/system-overview.pdf` and `md_docs/system-overview.md`, or `<target>-detail` and `<target>-operation` for the selected detail level. Use filesystem-safe names and preserve existing filename stems during revisions unless asked to rename them.
 3. Deliver both the PDF and its Markdown companion for every requested view, and update both during revisions. Neither a Markdown-only diagram nor a screenshot replaces the PDF. Keep renderer sources, working evidence inventories, and preview images in a temporary directory unless requested as deliverables; do not depend on temporary scripts from earlier sessions remaining available. This output rule does not restrict editing `SKILL.md` during skill maintenance.
 4. Verify the exported PDF opens and has the intended page count. Render temporary previews of every exported page and inspect clipping, typography, spacing, label collisions, arrow direction, crossings, and distinctions between context, inference, and primary connections.

@@ -7,6 +7,16 @@ description: Create paired PDF diagrams and agent-readable Markdown for systems,
 
 Turn the requested source material or concept into a readable PDF diagram with an agent-readable Markdown companion. Reuse the visual language of the control-flow and state-machine skills without imposing robotics concepts on other domains.
 
+## Required writing skill
+
+- You must use `$asd-ste100` for all English text you write or revise while using or maintaining this skill. Read its `SKILL.md` before writing. Resolve it from the available skills or [the sibling installation](../asd-ste100/SKILL.md). If it is unavailable, report the missing dependency and stop writing until it is available.
+- Apply it to diagram titles, labels, legends, Markdown companions, user messages, and skill edits. Use Strict mode for technical descriptions, conditions, instructions, and text for agents. Use STE-flavored mode for explanatory prose.
+- Preserve exact identifiers, paths, code, formulas, units, and required notation. Keep named states and interfaces unchanged. Short names and structured labels need not become full sentences. Write complete sentences for behavioral claims when a fragment could hide the actor or condition.
+- Preserve every fact, condition, scope limit, uncertainty, and distinction between requests and outcomes. Keep precise wording when a shorter version would change the meaning. Do not claim certified STE compliance.
+- Before rendering, apply the skill's review process to the diagram text and Markdown companion. Run its `scripts/ste-lint.py` on temporary text exports. Review findings against the source meaning. Correct applicable findings and record necessary exceptions in the brief completion message. Repeat the review after text changes.
+- Use `$asd-ste100` as the writing process within this workflow. Keep this skill's PDF and Markdown structure, notation, and delivery rules. Return the artifact links and brief completion message instead of replacing them with the writing skill's text-only response.
+
+
 ## Choose the view
 
 - Use the requested diagram kind, target, and detail level when established. Otherwise clarify only the missing choices that materially affect the result: relationships, procedural flow, or states; overview or a selected detail. Wait for required selections before generating.
@@ -86,7 +96,7 @@ Green, amber, and rose are semantic accent families, not fixed hex values. Use r
 
 ## PDF and Markdown output and verification
 
-1. Use an available renderer that produces a real PDF, preferably with vector text and shapes. Graphviz DOT rendered with `dot -Tpdf` suits many graphs; a plotting/PDF library or manual placement may better handle complex routing. Do not assume automatic layout satisfies the visual rules.
+1. Complete the required writing review before rendering. Use an available renderer that produces a real PDF, preferably with vector text and shapes. Graphviz DOT rendered with `dot -Tpdf` suits many graphs; a plotting/PDF library or manual placement may better handle complex routing. Do not assume automatic layout satisfies the visual rules.
 2. Export PDFs to `./pdf_docs/` and Markdown companions to `./md_docs/`, relative to the working project root. Create these directories if needed. Use matching filename stems, such as `pdf_docs/<short-descriptive-name>.pdf` and `md_docs/<short-descriptive-name>.md`. Use filesystem-safe names and preserve existing filename stems during revisions unless asked to rename them.
 3. Deliver both the PDF and its Markdown companion for every requested view, and update both during revisions. Neither a Markdown-only diagram nor a screenshot replaces the PDF. Keep renderer sources, working evidence inventories, and preview images in a temporary directory unless requested as deliverables; do not depend on temporary scripts from earlier sessions remaining available. This output rule does not restrict editing `SKILL.md` during skill maintenance.
 4. Verify the exported PDF opens and has the intended page count. Render temporary previews of every exported page and inspect clipping, typography, spacing, label collisions, arrow direction, crossings, and distinctions between context, inference, and primary connections.
