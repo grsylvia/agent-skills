@@ -1,11 +1,11 @@
 ---
 name: state-machine
-description: Generate source-grounded ROS and robotics state-machine diagrams as PDFs for reverse engineering, from whole-robot operation through application tasks, motion execution, joint bridges, and motor drives. Also supports managed-node lifecycle views. Use for states, events, guards, and transitions; node/interface maps and procedural control-flow diagrams are outside its scope.
+description: Generate source-grounded ROS and robotics state-machine diagrams as paired PDFs and agent-readable Markdown for reverse engineering, from whole-robot operation through application tasks, motion execution, joint bridges, and motor drives. Also supports managed-node lifecycle views. Use for states, events, guards, and transitions; node/interface maps and procedural control-flow diagrams are outside its scope.
 ---
 
 # Robotics state-machine visualizer
 
-Create the state-machine view selected by the user as a readable PDF. Explain what state an identifiable component or goal occupies, what changes that state, and which conditions govern the change.
+Create the state-machine view selected by the user as a readable PDF with an agent-readable Markdown companion. Explain what state an identifiable component or goal occupies, what changes that state, and which conditions govern the change.
 
 ## Select the level and target
 
@@ -46,30 +46,64 @@ A double-click expands only the selected state, task, or component. Preserve the
 - Use initial/final markers only when their meaning is established. A terminal action outcome is not necessarily a terminal node or robot state.
 - Summarize omitted detail accurately. A simplified drive-state diagram need not include every protocol transition, but it must not contradict the implemented ones.
 
-## Presentation
+## Shared visual parameters
+
+| Parameter | Standard |
+| --- | --- |
+| Page | Clean white canvas; landscape by default, with orientation and size adapted to the flow |
+| Text | Muted navy `#23364a`; clear sans-serif type |
+| Primary boxes | Pale blue `#eaf2fa`; bold role, entity, operation, or state name |
+| Context boxes | Gray `#f3f6f8`; explicitly labeled context or external boundary |
+| Secondary text | Smaller concise identifiers or details, still comfortably readable |
+| Highlights | Restrained green for supported successful outcomes, amber for uncertainty, rose for faults; always include textual meaning |
+| Title block | Left-aligned main title only; no eyebrow/overline above it and no subtitle below it |
+| Layout | Consistent alignment grid, generous margins, whitespace between groups |
+| Connectors | Thin, consistent strokes; explicit direction and concise labels where needed |
+| Footer | Small legend and page number; no explanatory paragraphs |
+
+Green, amber, and rose are semantic accent families, not fixed hex values. Choose muted shades with readable contrast. Do not impose a mandatory font size or page size; preserve legibility at the intended viewing scale.
+
+## Layout and concise text
+
+- Keep overviews understandable at a glance: essential entities and paths, short primary labels, and smaller identifiers when helpful. Reserve internal steps and implementation detail for separately requested detail views.
+- In detail views, prefer a primary label plus one to three short lines per box; use more only for an essential mapping or interface list. Remove repeated facts, narrative paragraphs, and notes that restate arrows.
+- Route connectors through dedicated corridors. Use separate lanes for return paths and loops; avoid crossings and unrelated boxes.
+- Position labels beside connectors with clearance from every line, arrowhead, and box. Do not conceal collisions with white text backgrounds.
+- Simplify wording, enlarge the canvas, adjust orientation, wrap concise labels, or manually position elements when layout crowds the diagram. Do not shrink text or tightly crop pages to force a fit.
+- Put necessary qualifications and unresolved boundaries into short box details, guards, edge labels, or attached context boxes. Keep the title and legend brief. Put essential scope/configuration in the diagram content or PDF metadata, not in title-adjacent text; omit decorative clutter.
+- Define connector meanings in the legend and mark inference explicitly. Distinguish primary connections from context; never silently reuse a style for conflicting meanings. Shared styling must preserve the selected diagram's semantics.
+- Use one coherent view per page. Split into multiple pages only when the requested scope needs them; do not add unrequested detail views.
+- Keep source links unobtrusive where supported. Do not include visible source-evidence sections, dense source catalogs, or reference appendices.
+- Inspect supplied visual references before styling. For Agrobot, use the approved spacious layout in `pdf_docs/agrobot-states.pdf` when available; other projects do not depend on that file. Match presentation while preserving the selected diagram's meaning.
+
+## State-machine presentation
 
 - Use one state machine per PDF page. Context boxes and a clearly scoped composite state may remain on that page. Separate independent task, bridge, drive, and lifecycle machines into their own pages when requested.
-- For Agrobot, use `state_machine/agrobot-states.pdf` as the style reference when available. Match the approved spacious layout, not an older crowded version. Inspect any user-provided reference before styling.
-- Use a left-aligned title, brief scope subtitle, small legend, and page number. Keep Level 1 understandable at a glance; move internal steps and interface detail into requested deeper views.
-- Use clear sans-serif type, bold state names, muted navy text (`#23364a`), pale blue states (`#eaf2fa`), gray context boxes (`#f3f6f8`), and restrained green, amber, or rose outcomes. Labels must convey meaning without relying on color.
-- Incorporate necessary behavioral qualifications and unresolved connections into concise state details, guards, edge labels, or attached context boxes. Remove generic explanatory prose. Do not add bottom-of-page paragraphs, evidence appendices, or dense source catalogs.
-- Keep source references unobtrusive: short owner/symbol labels in detail views or clickable source links where supported. Do not fill an overview with file paths.
-- Use solid arrows for evidenced state transitions and dotted connectors for interfaces/context, with a small legend. If a conceptual overview uses inferred arrows, identify that meaning explicitly. Never silently reuse one connector style for conflicting meanings.
-- Align states on a consistent grid. Route arrows through dedicated corridors; use separate lanes for return transitions and loops. Place labels beside connectors with clearance from every line, arrowhead, and box. Do not cover a line with a white text background to disguise overlap.
-- Use page space efficiently without crowding. Increase the PDF canvas, change orientation, wrap concise labels, or manually route connectors when necessary. Do not shrink text or tightly crop pages at the expense of readability. Prefer a larger spacious page over overlapping edges or labels.
+- Use bold state names. Keep source references to short owner/symbol labels in detail views or unobtrusive clickable links; do not fill an overview with file paths.
+- Use solid arrows for evidenced state transitions and dotted connectors for interfaces/context. If a conceptual overview uses inferred arrows, identify that meaning explicitly. Context connectors must remain distinguishable from transitions, and inference labels must remain visible after simplification.
 
-## PDF output and verification
+## Agent-readable Markdown
 
-- Save into the user's requested location; otherwise use `state_machine/` in the working project. Use short descriptive names, such as `agrobot-states.pdf`, `pick-states.pdf`, or `drive-states.pdf`. Preserve an existing name during revisions unless asked to rename it.
-- Deliver PDFs only unless other artifacts are requested. No Markdown diagram, README, PNG, or source script is a default deliverable. This restriction concerns diagram outputs, not the required `SKILL.md` when creating or editing the skill.
-- Keep rendering sources, transition inventories, and previews in a temporary directory. Do not depend on temporary scripts from earlier sessions remaining available.
-- Use an available renderer that produces a real PDF: Graphviz, a plotting/PDF library, or another suitable tool. Prefer vector text and shapes where practical. Manual positioning is appropriate when automatic layout crowds labels or crosses connections.
-- Verify the PDF opens and has the requested page count. Render temporary previews of every PDF page with an available PDF tool and inspect clipping, text size, spacing, arrow directions, and connector crossings. A source-canvas preview is useful but is not proof that the exported PDF renders correctly. If PDF inspection is unavailable, state the verification limit accurately.
-- Check that contextual edges cannot be mistaken for state transitions and that inference labels remain visible after simplification. Return a PDF link and a brief completion statement, then stop.
+- Describe the same selected view as the PDF in plain text, so an agent can trace it without opening the PDF. Use concise bullets rather than narrative paragraphs; images, Mermaid, or renderer source alone are insufficient.
+- Start with a title naming the view and level, then metadata bullets such as `source_pdf`, `workspace`, `configuration`, `verification`, and `state_owner`. Give `source_pdf` as the project-relative PDF path. Record whether the view is conceptual, explicit, or inferred, and distinguish source-derived findings from runtime verification. State when no owner, transitions, or initial/final markers are established.
+- Use `## Semantics`, `## Nodes`, and `## Edges` sections. For a multi-page PDF, repeat these sections under a heading identifying each page/machine and its owner. Define transition direction, context links, grouping, and inference markers in words; do not rely on color, position, or line style.
+- List each node as ``- `stable_id` | kind: state | label | short fact``. Use distinct kinds for explicit states, inferred modes, context, missing capabilities, and initial/final markers where present. Preserve IDs during revisions and exact state names where relevant. Use short indented bullets for necessary details, state storage, units, timing, or unresolved behavior at the selected level.
+- List each transition as ``- `source_id -> target_id` | transition | event [guard] / effect``, omitting guard or effect only when not applicable. Use one entry per connection and mark inferred transitions explicitly. List context connections separately with `kind: context`, using `--` only for undirected links. Context links are not transitions, and list order does not imply a transition sequence.
+- Preserve all meaningful PDF labels, conditions, failure/cancellation distinctions, and uncertainty. Mark missing or unknown facts explicitly without inventing states or transitions or expanding the view. Keep both artifacts synchronized; Markdown is the text representation of the diagram, not an extra audit or evidence catalog.
+
+## PDF and Markdown output and verification
+
+1. Use an available renderer that produces a real PDF, preferably with vector text and shapes. Graphviz DOT rendered with `dot -Tpdf` suits many graphs; a plotting/PDF library or manual placement may better handle complex routing. Do not assume automatic layout satisfies the visual rules.
+2. Export PDFs to `./pdf_docs/` and Markdown companions to `./md_docs/`, relative to the working project root. Create these directories if needed. Use matching filename stems, such as `pdf_docs/agrobot-states.pdf` and `md_docs/agrobot-states.md`, or `pick-states` and `drive-states` for the selected target. Use filesystem-safe names and preserve existing filename stems during revisions unless asked to rename them.
+3. Deliver both the PDF and its Markdown companion for every requested view, and update both during revisions. Neither a Markdown-only diagram nor a screenshot replaces the PDF. Keep renderer sources, working evidence inventories, and preview images in a temporary directory unless requested as deliverables; do not depend on temporary scripts from earlier sessions remaining available. This output rule does not restrict editing `SKILL.md` during skill maintenance.
+4. Verify the exported PDF opens and has the intended page count. Render temporary previews of every exported page and inspect clipping, typography, spacing, label collisions, arrow direction, crossings, and distinctions between context, inference, and primary connections.
+5. Correct layout defects and inspect the affected exported pages again. If PDF rendering or visual inspection is unavailable, state that limitation accurately; do not claim verification from the source canvas alone.
+6. Check PDF–Markdown agreement: every diagram node and connector has a corresponding text entry, all edge endpoints resolve to declared IDs, and labels, owners, state kinds, transition direction, events, guards, effects, grouping, and uncertainty agree. Confirm the Markdown points to the matching PDF and retains the selected scope.
+7. Return links to both the PDF and Markdown with a brief completion statement, then stop. Do not propose or generate additional views.
 
 ## Incorporate refinements
 
 - Apply user corrections to the requested work. When feedback changes reusable skill behavior, update this skill directly; keep one-off content or layout edits local to the diagram.
 - Preserve the scope of feedback and replace superseded instructions rather than accumulating conflicting rules or a chronological log. Ask only when persistence is genuinely ambiguous and consequential.
-- Before reporting completion of a requested refinement batch, consolidate the affected skill sections and check level names, scope, diagram semantics, and PDF requirements for consistency. Do not generate additional examples or change the separate control-flow skill as part of this cleanup unless requested.
+- Before reporting completion of a requested refinement batch, consolidate the affected skill sections and check level names, scope, diagram semantics, and paired output requirements for consistency. Do not generate additional examples or change the separate control-flow skill as part of this cleanup unless requested.
 - Validate new or edited skill instructions with the skill-creator validator when available. Skill maintenance remains subject to filesystem permissions; do not claim persistence until the write succeeds.

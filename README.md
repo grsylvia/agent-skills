@@ -9,6 +9,7 @@ Shared skills for Codex and Claude Code (`SKILL.md` format).
 | [robot-urdf-viewer](robot-urdf-viewer/SKILL.md) | Offline HTML robot viewer from URDF/Xacro |
 | [roboticist](roboticist/SKILL.md) | Beginner audit of a ROS 2 workspace |
 | [state-machine](state-machine/SKILL.md) | Robotics state-machine diagrams as PDFs |
+| [step-viewer](step-viewer/SKILL.md) | Offline HTML viewer for STEP CAD assemblies |
 
 ## Install
 
@@ -24,4 +25,4 @@ for s in ~/.agents/skills/*/; do ln -s "${s%/}" ~/.claude/skills/$(basename "$s"
 
 ## License
 
-[MIT](LICENSE). `robot-urdf-viewer/assets/viewer.html` bundles Three.js (MIT, notice included).
+[MIT](LICENSE). `robot-urdf-viewer/assets/viewer.html` and `step-viewer/assets/three.min.js` bundle Three.js (MIT, notice included).

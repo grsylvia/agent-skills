@@ -1,2 +1,4 @@
 # Ignore Python bytecode caches.
 __pycache__/
+# Ignore per-skill Python environments (step-viewer installs OCP here).
+.venv/
