@@ -17,6 +17,18 @@ Reusable skills for robotics, engineering research, and diagrams, shared between
 
 The `control-flow`, `state-machine`, and `visualize` skills produce paired PDF diagrams and agent-readable Markdown. Use the specialized ROS skills for execution and state analysis, and `visualize` for general diagrams. Use `diagram-code-walkthrough` to study an existing diagram alongside its implementation.
 
+## Required writing dependency
+
+The `control-flow`, `state-machine`, and `visualize` skills require [ASD-STE100](https://github.com/danyuchn/asd-ste100-skill) for writing and revisions. They use it to clarify diagram text and Markdown companions while preserving technical meaning and exact identifiers. Each skill stops writing if the dependency is unavailable.
+
+Install it separately into `~/.agents/skills/asd-ste100`. In Codex, use this prompt:
+
+```text
+Use $skill-installer to install danyuchn/asd-ste100-skill from the repository root on branch master. Name it asd-ste100 and install it into ~/.agents/skills.
+```
+
+This repository ignores `/asd-ste100/`, so cloning this repository does not install the dependency. For Claude Code, run the linking loop below after installing it.
+
 ## Install
 
 Clone this repository into Codex's user skills directory:
