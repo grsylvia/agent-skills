@@ -1,3 +1,5 @@
+# Ignore macOS Finder metadata.
+.DS_Store
 # Ignore Python bytecode caches.
 __pycache__/
 # Ignore per-skill Python environments (step-viewer installs OCP here).
@@ -7,5 +9,3 @@ __pycache__/
 /find-suppliers
 /source-bom
 
-# Third-party skills installed locally.
-/asd-ste100/
