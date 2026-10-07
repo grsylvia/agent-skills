@@ -1,0 +1,4 @@
+interface:
+  display_name: "Electronics Visualizer"
+  short_description: "Show components and exact physical wire connections"
+  default_prompt: "Use $electronics-visualize to show my components and their exact connection points in the navy and pale blue style."
