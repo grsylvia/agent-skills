@@ -21,44 +21,43 @@ The `control-flow`, `state-machine`, and `visualize` skills produce paired PDF d
 
 The `control-flow`, `state-machine`, and `visualize` skills require [ASD-STE100](https://github.com/danyuchn/asd-ste100-skill) for writing and revisions. They use it to clarify diagram text and Markdown companions while preserving technical meaning and exact identifiers. Each skill stops writing if the dependency is unavailable.
 
-Install it separately into `~/.agents/skills/asd-ste100`. In Codex, use this prompt:
-
-```text
-Use $skill-installer to install danyuchn/asd-ste100-skill from the repository root on branch master. Name it asd-ste100 and install it into ~/.agents/skills.
-```
-
-This repository ignores `/asd-ste100/`, so cloning this repository does not install the dependency. For Claude Code, run the linking loop below after installing it.
+This repository does not contain it. [`external-skills.txt`](external-skills.txt) lists it with a pinned commit, and the install script below clones it to `~/.agents/external/asd-ste100` and links it in as a skill.
 
 ## Install
 
-Clone this repository into Codex's user skills directory:
+Clone this repository, then run the install script:
 
 ```bash
-mkdir -p ~/.agents
-git clone https://github.com/grsylvia/agent-skills.git ~/.agents/skills
+git clone https://github.com/grsylvia/agent-skills.git ~/agent-skills
+~/agent-skills/scripts/link-skills.sh
 ```
 
-If that location already contains this checkout, update it instead:
+The script does three things:
+
+- It clones each skill in `external-skills.txt` into `~/.agents/external/`, checks out its pinned commit, and links it into this repository. Git ignores the link through `.git/info/exclude`.
+- It links `~/.agents/skills` to this repository for Codex.
+- It links each skill into `~/.claude/skills/` for Claude Code. Claude Code keeps synced skills in that directory, so the script links skills one by one instead of replacing it.
+
+It never replaces an existing file, folder, or link that points somewhere else.
+
+To update, pull and run the script again. The script adds links for new skills, removes broken links to deleted ones, and moves external skills to their pinned commits:
 
 ```bash
-git -C ~/.agents/skills pull --ff-only
-```
-
-To share these skills with Claude Code, create a link for each skill in `~/.claude/skills/`. This Bash snippet preserves existing entries:
-
-```bash
-mkdir -p ~/.claude/skills
-for skill in ~/.agents/skills/*/; do
-    [ -f "${skill}SKILL.md" ] || continue
-    name=$(basename "$skill")
-    target="$HOME/.claude/skills/$name"
-    if [ ! -e "$target" ] && [ ! -L "$target" ]; then
-        ln -s "${skill%/}" "$target"
-    fi
-done
+git -C ~/agent-skills pull --ff-only
+~/agent-skills/scripts/link-skills.sh
 ```
 
 Each skill documents its own inputs, dependencies, and output requirements. Scripts and bundled assets are specific to the skill that contains them.
+
+## External skills
+
+To add an external skill, add a line to `external-skills.txt` with its name, repository URL, and full commit hash, then run the script.
+
+To update a pin, list the upstream changes, review them, then change the commit in `external-skills.txt` and commit that change:
+
+```bash
+~/agent-skills/scripts/link-skills.sh --check-updates
+```
 
 ## Sourcing-agent skills
 
