@@ -6,20 +6,16 @@ Reusable skills for robotics, engineering research, and diagrams, shared between
 
 | Skill | Purpose |
 | --- | --- |
-| [bearing-specialist](bearing-specialist/SKILL.md) | Clarify bearing requirements and research manufacturer guidance and engineering references. Covers requirements and research, without selecting or validating a bearing. |
 | [control-flow](control-flow/SKILL.md) | Trace ROS 2 execution through nodes, interfaces, and callbacks at overview or detail level. |
-| [diagram-code-walkthrough](diagram-code-walkthrough/SKILL.md) | Walk through an existing control-flow or state-machine diagram step by step, tied to small code examples. |
-| [open-source-robot-finder](open-source-robot-finder/SKILL.md) | Find and compare buildable open-source robots, checking licenses, build files, and bills of materials. |
 | [robot-urdf-viewer](robot-urdf-viewer/SKILL.md) | Build a standalone offline HTML viewer from URDF or Xacro, with joint controls, frames, and block or STL geometry. |
 | [roboticist](roboticist/SKILL.md) | Review a ROS 2 workspace for beginner-level issues with URDF, frames, units, joint limits, and packaging; report cited findings without editing files. |
 | [state-machine](state-machine/SKILL.md) | Map robotics states, events, guards, and transitions, including ROS managed-node lifecycles. |
-| [visualize](visualize/SKILL.md) | Create general-purpose diagrams of systems, workflows, and relationships. |
 
-The `control-flow`, `state-machine`, and `visualize` skills produce paired PDF diagrams and agent-readable Markdown. Use the specialized ROS skills for execution and state analysis, and `visualize` for general diagrams. Use `diagram-code-walkthrough` to study an existing diagram alongside its implementation.
+The `control-flow` and `state-machine` skills produce paired PDF diagrams and agent-readable Markdown. Use these skills for ROS execution and state analysis.
 
 ## Required writing dependency
 
-The `control-flow`, `state-machine`, and `visualize` skills require [ASD-STE100](https://github.com/danyuchn/asd-ste100-skill) for writing and revisions. They use it to clarify diagram text and Markdown companions while preserving technical meaning and exact identifiers. Each skill stops writing if the dependency is unavailable.
+The `control-flow` and `state-machine` skills require [ASD-STE100](https://github.com/danyuchn/asd-ste100-skill) for writing and revisions. They use it to clarify diagram text and Markdown companions while preserving technical meaning and exact identifiers. Each skill stops writing if the dependency is unavailable.
 
 This repository does not contain it. [`external-skills.txt`](external-skills.txt) lists it with a pinned commit, and the install script below clones it to `~/.agents/external/asd-ste100` and links it in as a skill.
 

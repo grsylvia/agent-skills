@@ -2,14 +2,14 @@
 name: bom-creator
 description: >-
   Create and maintain a project BOM CSV for any engineering project, with optional electrical metadata.
-  Use for recording selected parts, quantities, specifications, and component changes, directly or through electrical-engineer.
+  Use for recording selected parts, quantities, specifications, and component changes, directly or through other skills.
   Follow source-bom's input format without invoking sourcing, estimating costs, or choosing suppliers.
 ---
 
 # Create and maintain a BOM
 
 Maintain one authoritative bill of materials, abbreviated BOM, in the project folder.
-Support direct user requests and updates requested through `$electrical-engineer`.
+Support direct user requests and updates requested through other skills.
 Use `$source-bom` as a format reference only.
 Future sourcing coordination belongs to the calling skill or user.
 
@@ -64,7 +64,7 @@ Label recommendations as proposals until the user selects them or explicitly del
 Do not silently substitute another manufacturer, part number, package, or revision.
 
 Use supplied evidence to record component facts.
-For electrical components, accept exact manufacturer datasheets, manuals, and schematics under `$electrical-engineer`'s evidence rules.
+For electrical components, accept exact manufacturer datasheets, manuals, and schematics.
 Use each document only for facts it establishes about the selected model and applicable revision.
 An applicable datasheet remains authoritative for the facts it covers.
 Report conflicts between manufacturer documents before dependent design.
@@ -183,7 +183,7 @@ Preserve leading zeros, capitalization, and suffixes in part numbers.
 
 Return the authoritative CSV path and a short summary of added, changed, and removed rows.
 Include affected `part_id` values, changed fields, unresolved requirements, and compatibility limitations.
-When `$electrical-engineer` calls this skill, identify changes that require dependent design results to be checked again.
+For electrical BOM updates, identify dependent design results that require another check.
 Return control to the caller after BOM maintenance.
 Do not start sourcing or the caller's next design stage.
 
